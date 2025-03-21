@@ -1,4 +1,6 @@
-This repository contains the databases and code needed to replicate the analysis described in the doctoral thesis: To plant or not to plant: Drivers of Native Woodland Creation in the United Kingdom.
+# Database and R code for the paper for the analyses described in the doctoral thesis: "To plant or not to plant: Drivers of Native Woodland Creation in the United Kingdom."
+
+This repository contains the databases and code needed to replicate the analyses described in the doctoral thesis: To plant or not to plant: Drivers of Native Woodland Creation in the United Kingdom.
 
 The files are:
 
