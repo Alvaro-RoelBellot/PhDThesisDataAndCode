@@ -1,4 +1,4 @@
-# Database and R code for the analyses described in the doctoral thesis: "To plant or not to plant? Drivers of Native Woodland Creation in the United Kingdom."
+# Databases and R code for the analyses described in the doctoral thesis: "To plant or not to plant? Drivers of Native Woodland Creation in the United Kingdom."
 
 This repository contains the databases and code needed to replicate the analyses described in the doctoral thesis: "To plant or not to plant? Drivers of Native Woodland Creation in the United Kingdom.". It also includes the database of correlation coefficients for Diffusion of Innovation Theory variables resulting from the auxiliary analysis described in sections 5.2.3 and 5.3.2 of the thesis.
 
