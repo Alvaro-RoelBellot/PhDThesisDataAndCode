@@ -831,7 +831,7 @@ Coefficient estimates (Log-odds)")+
 
 #PS: This is the code we used to run our auxiliary analysis to complement our statistical model’s findings.
 
-##We ran correlation tests for our variables to assess potential links between them.
+##We ran correlation tests for our Diffusion of Innovation variables to assess potential links between them.
 
 install.packages("rcompanion")  # Install the rcompanion package
 library(rcompanion)   # Load the rcompanion package
