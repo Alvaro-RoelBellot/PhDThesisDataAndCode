@@ -9,6 +9,8 @@ install.packages("sjPlot")
 install.packages("caret")
 install.packages("corrr")
 install.packages("car")
+install.packages("correlation")
+
 
 
 
@@ -19,7 +21,7 @@ library(sjPlot)
 library(caret)
 library(corrr) 
 library(car) 
-
+library(correlation)
 
 ##Set working directory
 
@@ -131,7 +133,7 @@ doitvars<-data_dnwcs%>%
                 groupdecision= if_else(groupdecision == TRUE, 1, 0),#Recode column so if value is "TRUE" it becomes 1 if not 0.
                 col160=as.factor(col160), #Recode column as a factor
                 col142=as.factor(col142), #Recode column as a factor
-                #singledecision=as.factor(singledecision), #Recode column as a factor
+                singledecision=as.factor(singledecision), #Recode column as a factor
                 alldecision=as.factor(alldecision), #Recode column as a factor
                 groupdecision=as.factor(groupdecision))%>% #Recode column as a factor
   
@@ -829,68 +831,20 @@ Coefficient estimates (Log-odds)")+
 
 #PS: This is the code we used to run our auxiliary analysis to complement our statistical model’s findings.
 
-##We ran Spearman correlation tests for our variables (categorical and ordinal) to assess potential links between them.
+##We ran correlation tests for our variables to assess potential links between them.
+
+install.packages("rcompanion")  # Install the rcompanion package
+library(rcompanion)   # Load the rcompanion package
 
 
-cor(data_dnwcs$col55, data_dnwcs$col12,use='complete.obs', method="spearman") #Spearman correlation between col55=economic well being and col12=land size
-ggplot(data = data_dnwcs, mapping = aes(y = col55, x = col12)) +
-  geom_point() 
+df_data <- as.data.frame(doitvars) #Transform the database containing the Diffusion of Innovation variables into a dataframe.
+str(df_data) #Check data after change
 
-cor(data_dnwcs$col17, data_dnwcs$col12, use='complete.obs', method="spearman") #Spearman correlation between col17=orgsize and col12=land size
-ggplot(data = data_dnwcs, mapping = aes(y = col17, x = col12)) +
-  geom_point() 
-
-cor(data_dnwcs$col94, data_dnwcs$col12, use='complete.obs', method="spearman") #Spearman correlation between col94=rslack money and col12=land size
-ggplot(data = data_dnwcs, mapping = aes(y = col94, x = col12)) +
-  geom_point() 
-
-cor(data_dnwcs$col95, data_dnwcs$col12, use='complete.obs', method="spearman") #Spearman correlation between col95=rslack time and col12=land size
-ggplot(data = data_dnwcs, mapping = aes(y = col95, x = col12)) +
-  geom_point() 
-
-cor(data_dnwcs$col18, data_dnwcs$col12, use='complete.obs', method="spearman") #Spearman correlation between col18=management lenght and col12=land size
-ggplot(data = data_dnwcs, mapping = aes(y = col18, x = col12)) +
-  geom_point() 
-
-cor(data_dnwcs$col154, data_dnwcs$col12, use='complete.obs', method="spearman") #Spearman correlation between col154=education and col12=land size
-ggplot(data = data_dnwcs, mapping = aes(y = col154, x = col12)) +
-  geom_point() 
-
-cor(data_dnwcs$col152, data_dnwcs$col12, use='complete.obs', method="spearman") #Spearman correlation between col18=management lenght and col12=land size
-ggplot(data = data_dnwcs, mapping = aes(y = col152, x = col12)) +
-  geom_point() 
-
-cor(data_dnwcs$col94, data_dnwcs$col17, use='complete.obs', method="spearman") #Spearman correlation between col94=rslack money and col17=org size
-ggplot(data = data_dnwcs, mapping = aes(y = col94, x = col17)) +
-  geom_point() 
-
-cor(data_dnwcs$col95, data_dnwcs$col17, use='complete.obs', method="spearman") #Spearman correlation between col95=rslack time and col17=org size
-ggplot(data = data_dnwcs, mapping = aes(y = col95, x = col17)) +
-  geom_point() 
-
-cor(data_dnwcs$col95, data_dnwcs$col17, use='complete.obs', method="spearman") #Spearman correlation between col95=rslack time and col17=org size
-ggplot(data = data_dnwcs, mapping = aes(y = col95, x = col17)) +
-  geom_point() 
+df_data1<-df_data%>%mutate_if(is.numeric, as.ordered) #When modelling ordered variables were coded as numeric, to estimate the correlation test we transformed them as ordered variables
+str(df_data1) #Check data after change
 
 
-
-##We ran point biserial correlation tests to explore if the fact that decisions in some landholdings rested on a single individual was correlated with any of the following variables: landholding size, organisation size, education, risk aversion, economic well-being, resource slack time and money.The point-biserial correlation measures the strength and direction of the relationship between a continuous variable and a dichotomous (two-valued) variable.
-
-cor.test(doitvars$singledecision, doitvars$landsize)
-
-cor.test(doitvars$singledecision, doitvars$econwellb)
-
-cor.test(doitvars$singledecision, doitvars$orgsize)
-
-cor.test(doitvars$singledecision, doitvars$reslack_money)
-
-cor.test(doitvars$singledecision, doitvars$reslack_time)
-
-cor.test(doitvars$singledecision, doitvars$edu)
-
-cor.test(doitvars$singledecision, doitvars$fam)
-
-cor.test(doitvars$singledecision, doitvars$riskavers)
+CorrTable<-rcompanion::correlation(df_data1, printClasses=TRUE)
 
 
 #PS ENDS
